@@ -1,24 +1,35 @@
-import React from 'react';
+import React, {useState} from 'react';
 import logo from './logo.svg';
+import TeamCard from './components/TeamCard.js';
+import TeamCardForm from './components/TeamCardForm.js';
 import './App.css';
 
 function App() {
+  const [cards, setCards] = useState([{}]);
+  const [cards2, setCards2] = useState([{}]);
+
+  const handleSubmit = (newcard) => {
+    setCards([...cards, newcard]);
+  };
+
+  const handleMove1 = (newcard) => {
+    setCards2([...cards, newcard]);
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className="container">
+        <h1 className="heading">Team Creator</h1>
+        <TeamCardForm onSubmit={handleSubmit} />
+        <div className='teamContainer'>
+          <div className='team'>
+            <TeamCard cards={cards} onMove={handleMove1}/>
+          </div>
+          <div className='team'>
+            <TeamCard cards={cards2} onMove={handleMove1}/>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
